@@ -38,7 +38,7 @@ if (narg > 7):			# must have at least these four
     ky.append(float(sys.argv[6]))
     kz.append(float(sys.argv[7]))
 else:
-    print "Must supply lens_file_name x0, y0, z0, kx0, ky0, kz0 arguments"
+    print("Must supply lens_file_name x0, y0, z0, kx0, ky0, kz0 arguments")
     sys.exit()
 
 if (narg > 8):		# optionally, put a screen somewhere
@@ -57,13 +57,13 @@ for i in range(n_surf): 		# and n_surf additional lines...
     R.append(float(Slist[2]))
     K.append(float(Slist[3]))
     current_z += z_vert[i+1]
-    print "Surface %d has n = %f, z_vert = %f, radius = %g, K = %f" % \
-                 (i+1,n[i+1],current_z,R[i+1],K[i+1])
+    print("Surface %d has n = %f, z_vert = %f, radius = %g, K = %f" % \
+                 (i+1,n[i+1],current_z,R[i+1],K[i+1]))
 
 lens_file.close()
 
-print "Ray 1 has x, k = (%f,%f,%f), (%f,%f,%f)" % \
-                (x[0],y[0],z[0],kx[0],ky[0],kz[0])
+print("Ray 1 has x, k = (%f,%f,%f), (%f,%f,%f)" % \
+                (x[0],y[0],z[0],kx[0],ky[0],kz[0]))
 
 current_z = 0.0
 for i in range(n_surf):		# now propagate surface-at-a-time
@@ -83,7 +83,7 @@ for i in range(n_surf):		# now propagate surface-at-a-time
     # carry out calculation
     out_pos,out_direc,back = raytrace.ray_step_3d(ray_pos,ray_direc,surf_params)
     if back:
-        print "WARNING: Ray jumped backwards"
+        print("WARNING: Ray jumped backwards")
 
     # stow out_ray into approp. arrays
     x.append(out_pos[0])
@@ -93,8 +93,8 @@ for i in range(n_surf):		# now propagate surface-at-a-time
     ky.append(out_direc[1])
     kz.append(out_direc[2])
 
-    print "Ray %d has x, k = (%f,%f,%f), (%f,%f,%f)" % \
-                (i+2,x[i+1],y[i+1],z[i+1],kx[i+1],ky[i+1],kz[i+1])
+    print("Ray %d has x, k = (%f,%f,%f), (%f,%f,%f)" % \
+                (i+2,x[i+1],y[i+1],z[i+1],kx[i+1],ky[i+1],kz[i+1]))
 
 # compute intercepts
 s_screen = (screen_pos - z[n_surf])/kz[n_surf]
@@ -109,7 +109,7 @@ s_zx = -y[n_surf]/ky[n_surf]
 x_zx = x[n_surf] + s_zx*kx[n_surf]
 z_zx = z[n_surf] + s_zx*kz[n_surf]
 
-print "Ray intercepts screen at (%f, %f, %f)" % (x_screen,y_screen,screen_pos)
-print "Ray intercepts z-y plane at (%f, %f, %f)" % (0.0,y_zy,z_zy)
-print "Ray intercepts z-x plane at (%f, %f, %f)" % (x_zx,0.0,z_zx)
+print("Ray intercepts screen at (%f, %f, %f)" % (x_screen,y_screen,screen_pos))
+print("Ray intercepts z-y plane at (%f, %f, %f)" % (0.0,y_zy,z_zy))
+print("Ray intercepts z-x plane at (%f, %f, %f)" % (x_zx,0.0,z_zx))
 

@@ -43,10 +43,10 @@ def    ray_step(in_ray, surface):
     thet_in = thet0 - thet_norm
     thet_out = asin(n0*sin(thet_in)/n_new)
     thet_new = thet_out + thet_norm
-    #print "%f %f %f %f" % (z_v,z_new,y_new,thet_norm)
+    #print("%f %f %f %f" % (z_v,z_new,y_new,thet_norm))
 
     if (z_new < z0):
-        print "WARNING: ray jumped backwards!"
+        print("WARNING: ray jumped backwards!")
 
     out_ray[0] = z_new
     out_ray[1] = y_new
@@ -76,7 +76,7 @@ if (narg > 5):			# must have at least these five
     slope = float(sys.argv[4])
     offset = float(sys.argv[5])
 else:
-    print "Must supply lens_file_name z0, y0, slope, offset arguments"
+    print("Must supply lens_file_name z0, y0, slope, offset arguments")
     sys.exit()
 
 if (narg > 6):		# optionally, put a screen somewhere
@@ -105,13 +105,13 @@ for i in range(n_surf): 		# and n_surf additional lines...
     R.append(float(Slist[2]))
     K.append(float(Slist[3]))
     current_z += z_vert[i+1]
-    print "Surface %d has n = %f, z_vert = %f, radius = %g, K = %f" % \
-                 (i+1,n[i+1],current_z,R[i+1],K[i+1])
+    print("Surface %d has n = %f, z_vert = %f, radius = %g, K = %f" % \
+                 (i+1,n[i+1],current_z,R[i+1],K[i+1]))
 
 lens_file.close()
 
-print "Ray 1+ has z = %f; y = %f; thet = %f" % (z[0],y[0],thet[0])
-print "Ray 1- has z = %f; y = %f; thet = %f" % (z[1],y[1],thet[1])
+print("Ray 1+ has z = %f; y = %f; thet = %f" % (z[0],y[0],thet[0]))
+print("Ray 1- has z = %f; y = %f; thet = %f" % (z[1],y[1],thet[1]))
 
 current_z = 0.0
 for i in range(n_surf):		# now propagate surface-at-a-time
@@ -150,10 +150,10 @@ for i in range(n_surf):		# now propagate surface-at-a-time
     y.append(out_ray[1])
     thet.append(out_ray[2])
 
-    print "Ray %d+ has z = %f; y = %f; thet = %f" % \
-                            (i+2,z[2*i+2],y[2*i+2],thet[2*i+2])
-    print "Ray %d- has z = %f; y = %f; thet = %f" % \
-                            (i+2,z[2*i+3],y[2*i+3],thet[2*i+3])
+    print("Ray %d+ has z = %f; y = %f; thet = %f" % \
+                            (i+2,z[2*i+2],y[2*i+2],thet[2*i+2]))
+    print("Ray %d- has z = %f; y = %f; thet = %f" % \
+                            (i+2,z[2*i+3],y[2*i+3],thet[2*i+3]))
 
 # final +y ray parameters
 zf0 = z[2*n_surf]
@@ -173,14 +173,14 @@ z_intercept0 = zf0 - yf0/mf0
 screen_intercept1 = yf1 + mf1*(screen_pos - zf1)
 z_intercept1 = zf1 - yf1/mf1
 
-print "+y ray intercepts screen at (%.3f, %f); z-axis at (%f, 0.0)" % \
-                (screen_pos,screen_intercept0, z_intercept0)
-print "-y ray intercepts screen at (%.3f, %f); z-axis at (%f, 0.0)" % \
-                (screen_pos,screen_intercept1, z_intercept1)
+print("+y ray intercepts screen at (%.3f, %f); z-axis at (%f, 0.0)" % \
+                (screen_pos,screen_intercept0, z_intercept0))
+print("-y ray intercepts screen at (%.3f, %f); z-axis at (%f, 0.0)" % \
+                (screen_pos,screen_intercept1, z_intercept1))
 
 # calculate ray intersection position
 zint = (yf1 - yf0 + mf0*zf0 - mf1*zf1)/(mf0-mf1)
 yint = yf0 + mf0*(zint - zf0)
 
-print "Rays intersect at (z,y) = (%f, %f)" % (zint,yint)
+print("Rays intersect at (z,y) = (%f, %f)" % (zint,yint))
 

@@ -43,10 +43,10 @@ def    ray_step(in_ray, surface):
     thet_in = thet0 - thet_norm
     thet_out = asin(n0*sin(thet_in)/n_new)
     thet_new = thet_out + thet_norm
-    #print "%f %f %f %f" % (z_v,z_new,y_new,thet_norm)
+    #print("%f %f %f %f" % (z_v,z_new,y_new,thet_norm))
 
     if (z_new < z0):
-        print "WARNING: ray jumped backwards!"
+        print("WARNING: ray jumped backwards!")
 
     out_ray[0] = z_new
     out_ray[1] = y_new
@@ -75,7 +75,7 @@ if (narg > 4):			# must have at least these four
     y.append(float(sys.argv[3]))
     slope = float(sys.argv[4])
 else:
-    print "Must supply lens_file_name z0, y0, slope arguments"
+    print("Must supply lens_file_name z0, y0, slope arguments")
     sys.exit()
 
 if (narg > 5):		# optionally, put a screen somewhere
@@ -96,12 +96,12 @@ for i in range(n_surf): 		# and n_surf additional lines...
     R.append(float(Slist[2]))
     K.append(float(Slist[3]))
     current_z += z_vert[i+1]
-    print "Surface %d has n = %f, z_vert = %f, radius = %g, K = %f" % \
-                 (i+1,n[i+1],current_z,R[i+1],K[i+1])
+    print("Surface %d has n = %f, z_vert = %f, radius = %g, K = %f" % \
+                 (i+1,n[i+1],current_z,R[i+1],K[i+1]))
 
 lens_file.close()
 
-print "Ray 1 has z = %f; y = %f; thet = %f" % (z[0],y[0],thet[0])
+print("Ray 1 has z = %f; y = %f; thet = %f" % (z[0],y[0],thet[0]))
 
 current_z = 0.0
 for i in range(n_surf):		# now propagate surface-at-a-time
@@ -127,8 +127,8 @@ for i in range(n_surf):		# now propagate surface-at-a-time
     y.append(out_ray[1])
     thet.append(out_ray[2])
 
-    print "Ray %d has z = %f; y = %f; thet = %f" % \
-                            (i+2,z[i+1],y[i+1],thet[i+1])
+    print("Ray %d has z = %f; y = %f; thet = %f" % \
+                            (i+2,z[i+1],y[i+1],thet[i+1]))
 
 # final +y ray parameters
 zf = z[n_surf]
@@ -140,6 +140,6 @@ mf = tan(thetf)
 screen_intercept = yf + mf*(screen_pos - zf)
 z_intercept = zf - yf/mf
 
-print "+Ray intercepts screen at (%.3f, %f); z-axis at (%f, 0.0)" % \
-                (screen_pos,screen_intercept, z_intercept)
+print("+Ray intercepts screen at (%.3f, %f); z-axis at (%f, 0.0)" % \
+                (screen_pos,screen_intercept, z_intercept))
 

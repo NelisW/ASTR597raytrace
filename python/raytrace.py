@@ -50,7 +50,7 @@ def ray_step_3d(ray_pos, ray_direc, surface):
         s = (z_v - z0)/kz0
 
     if (s < 0.0):
-        #print "WARNING: ray jumped backwards!"
+        #print("WARNING: ray jumped backwards!")
         backwards = True
     else:
         backwards = False
@@ -130,10 +130,10 @@ def    ray_step_2d(in_ray, surface):
     thet_in = thet0 - thet_norm
     thet_out = asin(n0*sin(thet_in)/n_new)
     thet_new = thet_out + thet_norm
-    #print "%f %f %f %f" % (z_v,z_new,y_new,thet_norm)
+    #print("%f %f %f %f" % (z_v,z_new,y_new,thet_norm))
 
     if (z_new < z0):
-        print "WARNING: ray jumped backwards!"
+        print("WARNING: ray jumped backwards!")
 
     out_ray[0] = z_new
     out_ray[1] = y_new

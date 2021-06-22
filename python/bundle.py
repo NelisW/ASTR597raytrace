@@ -40,7 +40,7 @@ if (narg > 9):
     Rmax = float(sys.argv[8])
     nray_target = int(sys.argv[9])
 else:
-    print "Need lens_file_name x0 y0 z0 kx0 ky0 kz0 Rmax nray arguments"
+    print("Need lens_file_name x0 y0 z0 kx0 ky0 kz0 Rmax nray arguments")
     sys.exit()
 
 haveOwnScreen = False
@@ -50,7 +50,7 @@ if (narg > 10):		# optionally, put a screen somewhere
 
 # initialize ray bundle
 Nray,x0,y0,z0 = raytrace.ray_bundle([xc,yc,zc],Rmax,nray_target)
-print "Processing %d rays" % Nray
+print("Processing %d rays" % Nray)
 
 # insert into lists
 x.append(x0)
@@ -73,8 +73,8 @@ for i in range(n_surf): 		# and n_surf additional lines...
     R.append(float(Slist[2]))
     K.append(float(Slist[3]))
     current_z += z_vert[i+1]
-    print "Surface %d has n = %.4f, z_vert = %.3f, radius = %g, K = %.4f" % \
-                 (i+1,n[i+1],current_z,R[i+1],K[i+1])
+    print("Surface %d has n = %.4f, z_vert = %.3f, radius = %g, K = %.4f" % \
+                 (i+1,n[i+1],current_z,R[i+1],K[i+1]))
 
 lens_file.close()
 
@@ -117,8 +117,8 @@ for i in range(n_surf):		# now propagate surface-at-a-time
         kz[i+1].append(out_direc[2])
 
     if nback:
-        print "%d Rays out of %d jumped backwards at surface %d" % \
-                    (nback,Nray,i+1)
+        print("%d Rays out of %d jumped backwards at surface %d" % \
+                    (nback,Nray,i+1))
 
 if not haveOwnScreen:
     bf_fit = raytrace.best_focus(x[-1],y[-1],z[-1],kx[-1],ky[-1],kz[-1])
@@ -129,10 +129,10 @@ state = [x[-1],y[-1],z[-1],kx[-1],ky[-1],kz[-1]]
 rms = raytrace.rms_blur([screen_pos],state)
 x_ctr,y_ctr = raytrace.centroid(screen_pos,state)
 if haveOwnScreen:
-    print "Hits screen at (%f, %f, %f); RMS = %f" % (x_ctr,y_ctr,screen_pos,rms)
+    print("Hits screen at (%f, %f, %f); RMS = %f" % (x_ctr,y_ctr,screen_pos,rms))
 else:
-    print "Best focus at (%f, %f, %f); RMS = %f" % (x_ctr,y_ctr,screen_pos,rms)
-print "Skew in x: %f; skew in y: %f" % raytrace.skewness(screen_pos,state)
+    print("Best focus at (%f, %f, %f); RMS = %f" % (x_ctr,y_ctr,screen_pos,rms))
+print("Skew in x: %f; skew in y: %f" % raytrace.skewness(screen_pos,state))
 
 x_spot, y_spot = raytrace.spot_pat(screen_pos,state)
 ax = pylab.subplot(1,1,1,aspect='equal')
